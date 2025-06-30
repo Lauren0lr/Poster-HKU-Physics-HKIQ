@@ -1,0 +1,412 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% a0poster Portrait Poster 
+% LaTeX Template
+% with University Copenhagen logo
+% Version 1.0 (22/06/13)
+%
+% Based on:
+% The a0poster class was created by:
+% Gerlinde Kettl and Matthias Weiser (tex@kettl.de)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a0,portrait]{a0poster}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage{graphicx}
+
+\usepackage{float} 
+\makeatletter
+\let\newfloat\newfloat@ltx
+\makeatother
+
+\usepackage[normalem]{ulem}
+
+
+\usepackage{amsthm}          % goes in the preamble
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\providecommand{\tr}{\operatorname{tr}}
+% put once in your preamble
+\providecommand{\D}[1]{\ensuremath{\mathrm{D}\!\left(#1\right)}}
+
+\providecommand{\ketbra}[1]{\ket{#1}\!\!\bra{#1}}
+
+\newtheorem{lemma}{Lemma} % This defines the lemma environment
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{multicol} % This is so we can have multiple columns of text side-by-side
+\columnsep=100pt % This is the amount of white space between the columns in the poster
+\columnseprule=3pt % This is the thickness of the black line between the columns in the poster
+
+\usepackage[svgnames]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
+
+\usepackage{times} % Use the times font
+%\usepackage{palatino} % Uncomment to use the Palatino font
+
+\usepackage{graphicx} % Required for including images
+\graphicspath{{figures/}} % Location of the graphics files
+\usepackage{booktabs} % Top and bottom rules for table
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{amsfonts, amsmath, amsthm, amssymb} % For math fonts, symbols and environments
+\usepackage{wrapfig} % Allows wrapping text around tables and figures
+\definecolor{ku}{RGB}{0,160,151}
+\definecolor{ku-yellow}{RGB}{255,249,25}
+
+ \usepackage{eso-pic}
+               \newcommand\BackgroundIm{
+               \put(66,-71){
+               \parbox[b][\paperheight]{\paperwidth}{%
+               \vfill
+               \centering
+               \includegraphics[height=\paperheight,width=\paperwidth,
+               keepaspectratio]{background.pdf}%
+               \vfill
+               }}}
+
+\begin{document}
+ \AddToShipoutPicture*{\BackgroundIm}
+%----------------------------------------------------------------------------------------
+%	POSTER HEADER 
+%----------------------------------------------------------------------------------------
+
+% The header is divided into two boxes:
+% The first is 75% wide and houses the title, subtitle, names, university/organization and contact information
+% The second is 25% wide and houses a logo for your university/organization or a photo of you
+% The widths of these boxes can be easily edited to accommodate your content as you see fit
+
+
+
+\begin{minipage}[t]{0.60\linewidth}
+\vspace{9.5cm}
+\Huge \color{ku} \textbf{Public-Key Quantum Authentication and Digital Signature Schemes} \color{Black}\\ % Title
+\huge\textit{Based on Quantum Marginal Problem}\\[1cm] % Subtitle
+\Large \textbf{Liu Leran}\\[0.5cm] % Author(s)
+%\Large Department of Physics\\[0.4cm] % University/organization
+
+\end{minipage}
+%
+\begin{minipage}[t]{0.40\linewidth}
+\vspace{9.5cm}
+\flushright
+\color{Black}
+\Large \textbf{Contact Information:}\\
+Room 616, Department of Physics\\
+The University of Hong Kong\\[1cm]
+Phone: +852 60965082\\ % Phone number
+Email: \texttt{leran@connect.hku.hk}% Email address
+\end{minipage}
+
+\vspace{1cm} % A bit of extra whitespace between the header and poster content
+
+%----------------------------------------------------------------------------------------
+
+\begin{multicols}{2} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\color{ku} % Navy color for the abstract
+
+\begin{abstract}
+
+We propose a quantum authentication and digital signature protocol whose security is founded on the Quantum Merlin Arthur~(QMA)-completeness of the consistency of local density matrices. The protocol functions as a true public-key cryptography system, where the public key is a set of local density matrices generated from the private key, a global quantum state. This construction uniquely eliminates the need for trusted third parties, pre-shared secrets, or authenticated classical channels for public key distribution, making a significant departure from symmetric protocols like quantum key distribution. We provide a rigorous security analysis, proving the scheme's unforgeability against adaptive chosen-message attacks by quantum adversaries. The proof proceeds by a formal reduction, demonstrating that a successful forgery would imply an efficient quantum algorithm for the QMA-complete Consistency of Quantum Marginal Problem~(QMP). We further analyze the efficiency of verification using partial quantum state tomography, establishing the protocol's theoretical robustness and outlining a path towards practical implementation.
+
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\color{Black} % SaddleBrown color for the introduction
+
+\section*{Introduction}
+Quantum identity authentication (QIA) and quantum digital signature (QDS) protocols are designed to leverage quantum infrastructure to achieve secure communication. Identity authentication is the process of ensuring the identity of the communicating parties, guaranteeing they are who they claim to be. Digital signatures, on the other hand, are designed to ensure the authenticity and integrity of the message itself, providing guarantees that it came from a specific sender and was not altered in transit. 
+In this work, we propose a QIA–QDS protocol that eliminates the need for pre-registration, trusted third parties, and pre-authenticated classical channels.
+%, thus enabling \sout{unrestricted} open network \sout{membership} access, secure message signing. It significantly enhances the scalability and practical deployability of quantum-secure networks. 
+Specifically, in our scheme, each user’s private key is represented by a quantum state, while the corresponding set of local reduced density matrices functions as the public key. The digital signature is realized by encoding classical messages into the global quantum state before transmission, thereby ensuring strong guarantees of message integrity and authenticity. Crucially, the security foundation of our protocol lies in the QMA-completeness of the QMP, also known as the Consistency of Local Density Matrices (CLDM) problem~\cite{liu2006}. The QMA-complete problem analogous to classical NP-complete problems—remains computationally intractable even for quantum computers.
+%}
+
+%----------------------------------------------------------------------------------------
+%	OBJECTIVES
+%----------------------------------------------------------------------------------------
+
+\color{Black} % Black color for the rest of the content
+
+\section*{Preliminaries: The Quantum Marginal Problem and Complexity}
+
+The Quantum marginal problem (QMP) is a fundamental question concerning the relationship between a whole quantum system and its parts~\cite{schilling2014quantum}. Formally, given a set of $n$ particles indexed by the set $I=\{1,\ldots ,n\}$, a collection of index subsets $J_k\subset I$, and a corresponding set of density matrices $\rho_{J_k}$, the QMP asks for the conditions under which a global state $\rho_I$ exists such that for all $k$, $\operatorname{Tr}_{I\setminus J_k}(\rho_I)=\rho_{J_k}$.
+
+For cryptographic purposes, we focus on the associated decision problem, known as the CLDM problem. 
+
+\begin{definition}[CLDM problem~\cite{liu2006}]
+Consider a system of $n$ qubits.  We are given a collection of local
+density matrices $\rho_1,\ldots ,\rho_m$, where each $\rho_i$ acts on a
+subset of qubits $C_i\subseteq\{1,\ldots ,n\}$.  Every matrix entry is
+specified with $\operatorname{poly}(n)$ bits of precision.  We also have
+$m\le\operatorname{poly}(n)$, and each subset satisfies
+$\lvert C_i\rvert\le k$ for some constant $k$.
+
+In addition, a real number $\beta$ is provided (again with
+$\operatorname{poly}(n)$ bits of precision) such that
+$\beta \ge 1/\operatorname{poly}(n)$.
+
+The task is to distinguish between the following two cases:
+\begin{itemize}
+  \item[]YES: There exists an $n$-qubit state $\sigma$ such that, for
+        all $i$,
+        \[
+          \bigl\lVert
+            \operatorname{Tr}_{\{1,\ldots ,n\}\setminus C_i}(\sigma)
+            -\rho_i
+          \bigr\rVert_1 = 0 .
+        \]
+  \item[]NO: For every $n$-qubit state $\sigma$ there is some $i$ for
+        which
+        \[
+          \bigl\lVert
+            \operatorname{Tr}_{\{1,\ldots ,n\}\setminus C_i}(\sigma)
+            -\rho_i
+          \bigr\rVert_1 \ge \beta .
+        \]
+\end{itemize}
+\end{definition}
+
+The CLDM problem is known to be QMA-complete, indicating that it is as hard as the most difficult problems verifiable by quantum computation. To clarify this classification, we briefly introduce the QMA complexity class.
+%}
+The complexity class QMA is the quantum analogue of the classical complexity class NP~\cite{KempeKitaevRegev06}. In the QMA framework, an all-powerful but untrustworthy prover (Merlin) sends a quantum state, or "witness,"  $\vert\psi\rangle$ to a polynomial-time quantum verifier (Arthur). Arthur performs a verification circuit on the witness and outputs 'accept' or 'reject'. A problem is in QMA if it satisfies two conditions:
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	MATERIALS AND METHODS
+%----------------------------------------------------------------------------------------
+
+\section*{The QMP-Based Cryptographic Protocol}
+Our protocol consists of
+%unfolds in 
+three phases that together realize a quantum public-key scheme. In the key generation phase, Alice’s private key is a polynomial-depth circuit; her public key is the full set of k-qubit marginals of the circuit’s output state, checkable via local consistency. In the authentication phase, Bob challenges Alice with an arbitrary M-qubit subset; Alice then returns the corresponding fragment, and Bob verifies its marginals against the public key. In the digital signature phase, Alice encodes a message into a unitary generated from some publicly-known, message-dependent transformation. A;ice applies the unitary to the challenged fragment, and any verifier can invert the unitary and test the marginals. The scheme requires no pre-registration. Its security is based on the hardness of reconstructing a highly entangled state from sparse local data.
+%}
+
+\subsection*{Key Generation}
+
+%\textcolor{red}{
+To initiate the key generation process, Alice first selects a security parameter $\lambda$ and constructs a classical description of a quantum circuit $\text{Circuit}_A$ with depth $\mathrm{poly}(\lambda)$. Applying $\text{Circuit}_A$ to the fixed initial state $\ket{0}^{\otimes N}$ yields her private key, the $N$-qubit state $\rho_A$. Once the private key state is prepared, Alice computes all $k$-qubit marginals by performing state tomography on each overlapping subsystem of size $k$. The resulting set of classical density matrices forms her public key, which she publishes. This workflow starts with Alice using her private circuit to prepare the global state $\rho_{A}$. She then publishes all its k-qubit reduced states. Anyone can download these marginals and check that they fit together consistently. However, without knowing the exact circuit parameters in $\text{Circuit}_A$, rebuilding the full $N$-qubit state is believed to be computationally infeasible.
+%}
+
+\textbf{Alice's Private Key (\textit{sk}\textsubscript{A}):}  
+Alice's private key is a classical description of an efficient quantum circuit, $\text{Circuit}_A$. This circuit, when applied to a standard initial state like $\ket{0}^{\otimes N}$, prepares a specific, highly entangled $N$-qubit system. The choice of $\rho_A$ should be such that it is highly-entangled thus its global entangled structure would be destroyed or only partially exist locally. The generation of large, structured entangled states is an active area of experimental research. The classical description of an efficient quantum circuit, $\text{Circuit}_A$ is to be used to generate Alice's private key. $\text{Circuit}_A$ is subject to a security parameter $\lambda$. The depth of $\text{Circuit}_A$ is $\text{poly}(\lambda)$.
+
+\textbf{Alice's Public Key (\textit{pk}\textsubscript{A}):}  
+Alice defines a set of $k$-local overlapping subsystems, $\{C_1,C_2,\ldots ,C_{\binom{N}{k}}\}$, where $C_N^k$ is a combinatorial number and S is a collection of the indices of qubits in the $N$-qubit entangled system $\rho_A$. Alice then generates the marginal density matrix for each subsystem by state tomography. 
+
+Her public key, $\textit{pk}_\text{A}$, is the set of classical descriptions of these $k$-local density matrices,
+$\textit{pk}_\text{A}= \{\rho_{C_1},\rho_{C_2},\ldots ,\rho_{C_{\binom{N}{k}}}\}$, which she makes publicly available. By its construction, the set of local density matrices representing Alice's public key is perfectly consistent, with the state $\rho_A$ serving as the unique global-state witness to this consistency. The pseudocode of key generation is shown as the below algorithm.
+
+% \begin{center}\vspace{1cm}
+% \includegraphics[width=0.8\linewidth]{algorithm1.png}
+% \captionof{figure}{Algorithm of Key Generation}
+% \end{center}\vspace{1cm}
+
+% \textcolor{red}{
+% Crucially, both private and public keys exist openly within the network, removing the necessity for pre-registration. Private keys can be randomly generated, and their corresponding public keys are activated only upon initiating the private key via known quantum circuit parameters. Once activated and memorized, the private key remains valid indefinitely, and the associated public key becomes the keyholder's recognized identifier.
+% }
+
+
+\subsection*{Authentication %\textcolor{red}{Procedure
+}
+%}
+
+We design a challenge-response protocol to prove Alice's identity with a verifier Bob. 
+
+\textit{Challenge:}  
+In this protocol, Bob first send a challenge to Alice by randomly selecting an $M$-qubits subsystem from $\{1,\ldots ,N\}$ qubits system of Alice, where $k<M<N$. He sends the classical description of all the indices of qubits and send this challenge to Alice. The state Bob asked for is denoted as $s_M$, which is a string of indices of corresponding qubits. 
+
+\textit{Response:}  
+After receiving the challenge string, Alice uses her private key $\text{Circuit}_A$ to prepare the state $\rho_A$. According to the challenge string $s_M$. She then sends the state $\rho_M$ to Bob as a response.
+% \textcolor{red}{The state $\rho_M$ serves as a fragment of the private key $\rho_A$ that corresponds to a specific subset of qubits. This selective disclosure strategy prevents full exposure of the private key and reduces the risk of the verifier accumulating enough copies of $\rho_A$ to impersonate Alice. To defend against replay attacks and unauthorized key reconstruction, each subset is randomly selected from the $\binom{N}{M}$ possible combinations. The $k$-qubit local density matrices associated with these fragments are also published as part of the public key $\textit{pk}_\text{A}$. Further details on security considerations are provided in Section \emph{Security Analysis}.}
+
+\textit{Verification:}  
+% \sout{Bob receive the state $\rho_M$ and collects the measurement results and checks if their statistical distribution matches the predictions derived from the public marginals \textcolor{red}{$\textit{pk}_\text{A}$} published by Alice.}
+%{\color{red}
+Bob receives multiple copies of the subsystem state $\rho_M$ and performs quantum state tomography to reconstruct the corresponding $k$-qubit local density matrices, which we denote by $\rho_{C_k} \;=\;\operatorname{Tr}_{\{1,\ldots,M\}\setminus C_k}(\rho_M)$.
+He then checks each reconstructed marginal against the corresponding public‐key marginal \(\rho_{C_k}\) by verifying
+\[
+\frac{1}{2}\bigl\|\rho_{C_k} - \rho_{C_k}\bigr\|_1 \;\le\;\epsilon,
+\]
+for every $C_k\subset s_M$ and $|C_k| = k$, where $\epsilon$ is a predetermined acceptance threshold. If every inequality holds,
+%}
+%\sout{If the statistics are consistent,} 
+Bob accepts that the responder is Alice, as only she can produce the global state $\rho_A$ from which these statistics arise.
+
+
+\subsection*{Digital Signature 
+%\textcolor{red}{Procedure}
+}
+
+\textit{Signing:}  
+To sign a classical message $m$, Alice applies a publicly known, message-dependent, and efficiently invertible unitary transformation $U_m$ to the state asked by Bob, $\rho_M$. In many digital signature protocols, there is a preprocessing process: a plain-texted, arbitrary, unstructured \(x\) is first compressed through a publicly specified cryptographic hash function \(h\), producing the fixed-length message
+\(
+  m \;=\; h(x).
+\)
+The digest \(m\) is then a standardized message that enters the signature protocol. After transformation, the resulting quantum state,
+$\sigma_m=U_m\rho_M$, then constitutes the quantum digital signature for the message $m$.  Alice prepares multiple identical copies of $\sigma_m$ and transmits them to the verifier. 
+
+% In the following paragraph, we first give a proper definition or to say, limitation on the message that is to be sent, and then give a proper definition for a message-dependent transformation $U_m$:
+
+% %-----------------------------------------------------------------
+% %   Formal preliminaries: messages and the message-dependent
+% %   unitary transformation U_m
+% %-----------------------------------------------------------------
+
+% \begin{definition}[Classical messages]\label{def:message}
+% Let $\mathcal{L}$ be a finite, publicly agreed-upon alphabet, say language.
+% A message is a finite word
+% \[
+%   m \;=\; m_1 m_2 \dotsm m_{|m|},\qquad
+%   m_j \in \mathcal{L}\;(1\le j\le|m|).
+% \]
+% Typically $|m|\le \gamma$, where $\gamma$ is the
+% allowed message length.  A simple example is: with
+% $\mathcal{L}=\{0,1\}$ we recover ordinary binary strings. 
+% %This could also be realized by ha\textcolor{red}{shing a string into a fixed-length binary message~\cite{preneel1994cryptographic}.}
+% \end{definition}
+
+
+% \begin{definition}[Message-dependent unitary $U_m$]\label{def:Um}
+% A publicly known universal gate set is given to construct quantum circuit and give operation on qubits. Such gate set is
+% \[
+%   \mathcal{G}=\{G_1,G_2,\ldots,G_L\}.
+% \]
+%  For every
+% $i\in\{1,\dots,L\}$ and every $\ell\in\mathcal{L}$ we specify a unitary
+% $G_i^{(\ell)}$ via the public rule
+% \[
+%   G_i^{(\ell)} =
+%   \begin{cases}
+%     \mathbb{I}, & \text{if $\ell$ encodes ``skip''},\\[4pt]
+%     G_i,        & \text{if $\ell$ encodes a
+%                   non-parametric gate},\\[4pt]
+%     G_i(\theta_\ell), & \text{if $G_i$ is a rotation and
+%                          $\ell\!\mapsto\!\theta_\ell\in[0,2\pi)$}.
+%   \end{cases}
+% \]
+
+% \paragraph{Construction of $U_m$.}
+% Read $m=m_1\dotsm m_{|m|}$ from left to right and assign gates cyclically with
+% $i(j)=(j\bmod L)+1$, rightmost-first-ordered,
+% \begin{equation}
+%   U_m \;=\; \prod_{j=1}^{|m|} G_{\,i(j)}^{\bigl(m_j\bigr)}.
+%   \label{eq:Um}
+% \end{equation}
+
+% \paragraph{Properties.}
+% \begin{enumerate}[label=(\roman*), leftmargin=*, itemsep=2pt]
+%   \item Efficient invertibility.  
+%         $U_m^{-1}$ is obtained by reversing the product
+%         in~\eqref{eq:Um} and taking adjoints, so both
+%         $U_m$ and $U_m^{-1}$ have depth $O(|m|)$.
+
+%   \item Injectivity. 
+%         Different messages change at least one factor
+%         in~\eqref{eq:Um}; hence the map
+%         \(
+%           \mathcal{U}:\mathcal{L}^{\ast}\!\to\!\mathrm{U}(2^{n}),\;
+%           m\mapsto U_m
+%         \)
+%         is injective.
+
+%   \item Public computability. 
+%         Because the rule $(i,\ell)\mapsto G_i^{(\ell)}$ is public,
+%         both $\mathcal{U}$ and its inverse
+%         $\mathcal{U}^{-1}$ are efficiently computable.
+% \end{enumerate}
+% \end{definition}
+
+
+
+\medskip
+During the signing phase Alice applies $U_m$ to the challenged subsystem $\rho_M$,
+producing the signature state $\sigma_m = U_m\rho_M$.
+
+% \begin{algorithm}[ht]
+%   \caption{\textsc{Sign}$(\textit{sk}_A,s_M,m)$}
+%   \label{alg:sign}
+%   \begin{algorithmic}[1]
+%     \REQUIRE private key $\mathit{sk}_A$, challenge $s_M$, message $m$
+%     \ENSURE multiple copies of $\sigma_m$
+%     \STATE Alice uses $\mathrm{Circ}_A$ to prepare $\rho_A$.
+%     \STATE Alice uses $s_M$ and $\rho_A$ to prepare $\rho_M$.
+%     \STATE Alice applies the public, message-dependent unitary $U_m$ to get $\sigma_m = U_m\rho_M$.
+%     \STATE Alice outputs multiple copies of $\sigma_m$.
+%   \end{algorithmic}
+% \end{algorithm}
+
+
+
+
+
+\textit{Verification:}  
+Any party in possession of Alice's public key $\textit{pk}_\text{A}$, the message $m$, and the signature copies $\sigma_m$ can perform verification. The verifier's goal is to confirm that the received state, when untransformed, has marginals consistent with Alice's public key. To do this, the verifier first applies the inverse transformation $U_m^{-1}$ to each copy of the signature, yielding the state $\sigma_m'=U_m^{-1}\sigma_m$. %\textcolor{red}{
+Verification then proceeds exactly as in the Authentication procedure, with each instance of $\rho_{M}$ replaced by $\sigma_m'$.
+%}
+% \sout{The verifier then needs to check if the marginals of $\sigma_m'$ are consistent with the public key, i.e.\ if}
+% \[\bcancel{
+%   \operatorname{Tr}_{\{1,2,\ldots, C_M^k\}-C_k} \sigma_m' \approx\;\rho_{C_k}
+%   \quad\text{for all }k.}
+% \]
+The methods for performing this check are detailed in the Section \emph{Security Analysis} in the arxiv paper \cite{ourpaper}.
+
+% \begin{algorithm}[ht]
+%   \caption{\textsc{Verify}$(\textit{pk}_A,m,\sigma_m)$}
+%   \label{alg:verify}
+%   \begin{algorithmic}[1]
+%     \REQUIRE public key $\textit{pk}_\text{A}= \{\rho_{C_1},\rho_{C_2},\ldots ,\rho_{C_{\binom{N}{k}}}\}$, message $m$, signature $\sigma_m$, acceptance threshold $\epsilon$
+%     \ENSURE \textsc{accept} or \textsc{reject}
+%     \STATE Verifier construct $U_m^{-1}$ by message $m$ and defined rule
+%     \STATE Verifier reduction the signature state to private key fragment: $\sigma_m' = U_m^{-1}\sigma_m$.
+%     \FOR{$k = 1,\ldots, \binom{M}{k}$}
+%       \STATE Verifier compute $\sigma_{C_k} \;=\;\operatorname{Tr}_{\{1,\ldots,M\}\setminus C_k}(\sigma_m')$
+%       \IF{$\frac{1}{2}\bigl\|\rho_{C_k} - \rho_{C_k}\bigr\|_1 > \epsilon$}
+%       \STATE \textbf{return} REJECT
+%       \ENDIF
+%     \ENDFOR
+%     \STATE \textbf{return} ACCEPT
+%   \end{algorithmic}
+% \end{algorithm}
+
+
+\section*{Conclusions}
+This work has introduced a novel framework for public-key quantum cryptography based on the computational hardness of the quantum marginal problem. The resulting authentication and digital signature protocol is, to our knowledge, the first to leverage the QMA-completeness of a natural physical problem to achieve security. The protocol's principal advantage is its self-contained and decentralized nature. It successfully establishes a true public-key system-without any reliance on trusted third parties, pre-shared secrets between users, or pre-authenticated classical channels for the distribution of public keys. This represents a significant step toward building scalable quantum networks where trust can be established dynamically and securely based on the laws of quantum mechanics and computational complexity. The security is proven to be robust, with existential unforgeability against adaptive chosen-message attacks by quantum adversaries reducible to the intractability of the CLDM problem.
+
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+
+\nocite{*} % Print all references regardless of whether they were cited in the poster or not
+\bibliographystyle{plain} % Plain referencing style
+\bibliography{sample} % Use the example bibliography file sample.bib
+
+
+%----------------------------------------------------------------------------------------
+
+\end{multicols}
+\end{document}
